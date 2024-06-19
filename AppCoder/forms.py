@@ -1,5 +1,5 @@
 from django import forms
-from .models import Curse, Avatar
+from .models import Avatar
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
 

@@ -1,7 +1,6 @@
 from django.shortcuts import render
-from .models import Curse, Teacher, Avatar
-from django.http import HttpResponse
-from .forms import Curse_Form, Teacher_Form, Edit_User_Form, Avatar_Form
+from .models import Shoe, Shirt, Avatar
+from .forms import Shoe_Form, Shirt_Form, Edit_User_Form, Avatar_Form
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
@@ -12,18 +11,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.admin.views.decorators import staff_member_required
 
 # Create your views here.
-def curse(req, name, category):
-  new_curse = Curse(name = name, category = category)
-  new_curse.save()
-  return HttpResponse(f"""
-    <p>Curse: {new_curse.name} - Category {new_curse.category} created!</p>
-  """)
-
-@login_required
-def get_curses(req):
-  curses = Curse.objects.all()
-  return render(req, 'curses.html',{'curses':curses})
-
 def init(req):
     try:
       avatar = Avatar.objects.get(user = req.user.id)
@@ -31,116 +18,41 @@ def init(req):
     except:
       return render(req, 'init.html',{})
 
+def shoes(req):
+  all_shoes = Shoe.objects.all()
+  return render(req, 'shoes.html', {'shoes': all_shoes})
 
-def students(req):
-  return render(req, 'students.html',{})
+def shirts(req):
+  all_shirts = Shirt.objects.all()
+  return render(req, 'shirts.html', {'shirts': all_shirts})
 
-def works(req):
-  return render(req, 'works.html',{})
-
-@staff_member_required(login_url="/app-coder/login")
-def add_curse(req):
+def shoe_form(req):
   if req.method == 'POST':
-    my_form = Curse_Form(req.POST)
+    my_form = Shoe_Form(req.POST)
     if my_form.is_valid():
       data = my_form.cleaned_data
-      new_curse = Curse(name = data['name'], category = data['category'])
-      new_curse.save()
-      return render(req, 'init.html',{'message': 'curse created'}) 
+      new_shoe = Shoe(model = data['model'], size = data['size'], price = data['price'])
+      new_shoe.save()
+      return render(req, 'init.html',{'message': 'shoe created'}) 
     else:
-      return render(req, 'init.html',{'message': 'invalid data'}) 
+      return render(req, 'shoes.html',{'message': 'invalid data'}) 
   else:
-    my_form = Curse_Form()
-    return render(req, 'curse_form.html',{'my_form': my_form}) 
+    my_form = Shoe_Form()
+    return render(req, 'add_shoe.html',{'my_form': my_form})
   
-def search_category(req):
-  return render(req, 'search_category.html', {})
-
-def search_curse(req):
-  if req.GET["category"]:
-    category = req.GET["category"]
-    curses_finded = Curse.objects.filter(category__icontains = category)
-    return render(req, 'search_curse.html', {'curses': curses_finded, 'category': category})
-  else:
-    return render(req, 'init.html', {'message': 'category not sended'})
-
-def get_teachers(req):
-  teachers = Teacher.objects.all()
-  return render(req, 'teachers.html', {'teachers': teachers})
-
-def add_teacher(req):
+def shirt_form(req):
   if req.method == 'POST':
-    my_form = Teacher_Form(req.POST)
+    my_form = Shirt_Form(req.POST)
     if my_form.is_valid():
       data = my_form.cleaned_data
-      new_teacher = Teacher(name = data['name'], last_name = data['last_name'], email = data['email'], profession = data['profession'])
-      new_teacher.save()
-      return render(req, 'init.html',{'message': 'teacher created'}) 
+      new_shirt = Shirt(model = data['model'], size = data['size'], price = data['price'])
+      new_shirt.save()
+      return render(req, 'init.html',{'message': 'shirt created'}) 
     else:
-      return render(req, 'init.html',{'message': 'invalid data'}) 
+      return render(req, 'shirts.html',{'message': 'invalid data'}) 
   else:
-    my_form = Teacher_Form()
-    return render(req, 'teacher_form.html',{'my_form': my_form}) 
-  
-def delete_teacher(req, id):
-  if req.method == 'DELETE':
-    teacher = Teacher.objects.get(id = id)
-    teacher.delete()
-
-    teachers = Teacher.objects.all()
-    return render(req, 'teachers.html', {'teachers': teachers})
-
-def update_teacher(req, id):
-  teacher = Teacher.objects.get(id = id)
-  if req.method == 'POST':
-    my_form = Teacher_Form(req.POST)
-    if my_form.is_valid():
-      data = my_form.cleaned_data
-      teacher.name = data['name']
-      teacher.last_name = data['last_name']
-      teacher.email = data['email']
-      teacher.profession = data['profession']
-      teacher.save()
-      return render(req, 'init.html',{'message': 'teacher modified'}) 
-    else:
-      return render(req, 'init.html',{'message': 'invalid data'}) 
-  else:
-    my_form = Teacher_Form(initial = {
-      "name": teacher.name,
-      "last_name": teacher.last_name,
-      "email": teacher.email,
-      "profession": teacher.profession,
-    })
-    return render(req, 'update_teacher_form.html',{'my_form': my_form, 'id': teacher.id}) 
-  
-class Curse_List(LoginRequiredMixin, ListView):
-  model = Curse
-  template_name = 'curse_list.html'
-  context_object_name = 'curses'
-
-class Curse_Detail(DetailView):
-  model = Curse
-  template_name = 'curse_detail.html'
-  context_object_name = 'curse'
-
-class Create_Curse(CreateView):
-  model = Curse
-  template_name = 'create_curse.html'
-  fields = ["name", "category"]
-  success_url = '/app-coder/curse-list'
-
-class Update_Curse(UpdateView):
-  model = Curse
-  template_name = 'update_curse.html'
-  fields = ('__all__')
-  success_url = '/app-coder/curse-list'
-  context_object_name = 'curse'
-
-class Delete_Curse(DeleteView):
-  model = Curse
-  template_name = 'delete_curse.html'
-  success_url = '/app-coder/curse-list'
-  context_object_name = 'curse'
+    my_form = Shirt_Form()
+    return render(req, 'add_shirt.html',{'my_form': my_form})
 
 def my_login(req):
   if req.method == 'POST':
