@@ -1,0 +1,10 @@
+{% extends 'padre.html' %} {% block changing_content %}
+<form
+  action="{% url 'Add_Avatar' %}"
+  method="POST"
+  enctype="multipart/form-data"
+>
+  {% csrf_token %} {{my_form.as_p}}
+  <button type="submit">Add</button>
+</form>
+{% endblock changing_content %}

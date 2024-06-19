@@ -1,0 +1,15 @@
+{% extends 'padre.html' %} {% block changing_content %}
+<form action="{% url 'Search_Curse' %}" method="GET">
+  <p>Searching by entry {{category}}</p>
+
+  {% if curses %}
+  <ul>
+    {% for curse in curses %}
+    <li>{{curse.name}} - {{curse.category}}</li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No hubo coincidencias</p>
+  {% endif %}
+</form>
+{% endblock changing_content %}

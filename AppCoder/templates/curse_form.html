@@ -1,0 +1,6 @@
+{% extends 'padre.html' %} {% block changing_content %}
+<form action="{% url 'Add_Curse' %}" method="POST">
+  {% csrf_token %} {{my_form.as_p}}
+  <button type="submit">Create</button>
+</form>
+{% endblock changing_content %}

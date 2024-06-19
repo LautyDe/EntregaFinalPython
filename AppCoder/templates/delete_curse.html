@@ -1,0 +1,8 @@
+{% extends 'padre.html' %} {% block changing_content %}
+<form action="{% url 'Delete_Curse' curse.id %}" method="POST">
+  {% csrf_token %}
+  <p>Do you want to delete the curse?</p>
+  <button type="submit">Delete</button>
+  <button><a href="{% url 'Curse_List' %}">Cancel</a></button>
+</form>
+{% endblock changing_content %}
