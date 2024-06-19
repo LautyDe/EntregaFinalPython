@@ -3,20 +3,16 @@ from .models import Curse, Avatar
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
 
-""" class Curse_Form(forms.Form):
-  name = forms.CharField()
-  category = forms.IntegerField() """
 
-class Curse_Form(forms.ModelForm):
-  class Meta:
-    model = Curse
-    fields = ('__all__')
+class Shirt_Form(forms.Form):
+  model = forms.CharField()
+  size = forms.IntegerField()
+  price = forms.IntegerField()
 
-class Teacher_Form(forms.Form):
-  name = forms.CharField()
-  last_name = forms.CharField()
-  email = forms.CharField()
-  profession = forms.CharField()
+class Shoe_Form(forms.Form):
+  model = forms.CharField()
+  size = forms.IntegerField()
+  price = forms.IntegerField()
 
 class Edit_User_Form(UserChangeForm):
   password = forms.CharField(

@@ -2,41 +2,23 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
-class Curse(models.Model):
-  name = models.CharField(max_length=40)
-  category = models.IntegerField()
+class Shoe(models.Model):
+  model = models.CharField(max_length=100)
+  size = models.IntegerField()
+  price = models.IntegerField()
   def __str__(self):
-    return f'{self.name} - {self.category}'
+    return f'{self.model} - {self.size}'
   class Meta():
-    ordering = ('name','category')
-    unique_together = ('name','category',)
+    ordering = ('model','size')
   
-class Student(models.Model):
-  name = models.CharField(max_length=30)
-  last_name = models.CharField(max_length=30)
-  email = models.EmailField(null=True)
+class Shirt(models.Model):
+  model = models.CharField(max_length=100)
+  size = models.IntegerField()
+  price = models.IntegerField()
   def __str__(self):
-    return f'{self.name} - {self.last_name}'
-
-class Teacher(models.Model):
-  name = models.CharField(max_length=30)
-  last_name = models.CharField(max_length=30)
-  email = models.EmailField()
-  profession = models.CharField(max_length=30)
-  curses = models.ManyToManyField(Curse)
-  def __str__(self):
-    return f'{self.name} {self.last_name} - {self.profession}'
-
-class Works(models.Model):
-  name = models.CharField(max_length=30)
-  date = models.DateField()
-  delivered = models.BooleanField()
-  student = models.ForeignKey(Student, on_delete=models.CASCADE)
-  def __str__(self):
-    return f'{self.name} - {self.date}'
+    return f'{self.model} - {self.size}'
   class Meta():
-    #verbose_name = 'Works' Como aparece en la lista del admin
-    verbose_name_plural = 'Works' #el plural del modelo
+    ordering = ('model','size')
 
 class Avatar(models.Model):
   user = models.OneToOneField(User, on_delete = models.CASCADE)
