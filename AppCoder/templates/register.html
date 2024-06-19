@@ -1,4 +1,4 @@
-{% extends 'padre.html' %} {% block changing_content %}
+{% extends 'main.html' %} {% block changing_content %}
 <form action="{% url 'Register' %}" method="POST">
   {% csrf_token %} {{my_form.as_p}}
   <button type="submit">Register</button>
