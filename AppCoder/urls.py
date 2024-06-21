@@ -13,6 +13,7 @@ urlpatterns = [
     path('logout', LogoutView.as_view(template_name = 'logout.html'), name='Logout'),
     path('update-user', update_user, name='Update_User'),
     path('add-User_Avatar', add_User_Avatar, name='Add_User_Avatar'),
+    path('about-us', about_us, name= 'About_Us')
 ]
 
 #admin lautaro - 123123123
