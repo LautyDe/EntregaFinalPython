@@ -4,7 +4,11 @@
 {% if shoes %}
 <ul>
   {% for shoe in shoes %}
-  <li>{{shoe.model}} - Size {{shoe.size}}: ${{shoe.price}}</li>
+  <li>
+    <a href="{% url 'DetailShoe' .id %}">
+    {{shoe.model}} - Size {{shoe.size}}: ${{shoe.price}}
+    </a>
+  </li>
   {% endfor %}
 </ul>
 {% else %}

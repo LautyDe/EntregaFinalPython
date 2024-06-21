@@ -13,7 +13,9 @@ urlpatterns = [
     path('logout', LogoutView.as_view(template_name = 'logout.html'), name='Logout'),
     path('update-user', update_user, name='Update_User'),
     path('add-User_Avatar', add_User_Avatar, name='Add_User_Avatar'),
-    path('about-us', about_us, name= 'About_Us')
+    path('about-us', about_us, name= 'About_Us'),
+    path('detail-shoe/<pk>', ShoeDetail.as_view(), name='DetailShoe'),
+    path('detail-shirt/<pk>', ShirtDetail.as_view(), name='DetailShirt'),
 ]
 
 #admin lautaro - 123123123
