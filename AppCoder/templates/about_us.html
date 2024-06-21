@@ -1,0 +1,9 @@
+{% extends 'main.html' %} {% block changing_content %}
+<h1>Titulo del inicio</h1>
+<p>El grupo de la comision 54145 conformado por Priscila, Lautaro Demonte y Matias Oliver Engel crearon y diseñaron esta web especificamente para que el cliente que los eliga pueda solucionar los problemas a la hora de controlar el stock de cualquier emprendimiento de remeras y zapatillas.
+
+    Somos P.L.M team</p>
+
+{% if url %}
+<img src="{{url}}" alt="User_Avatar" />
+{% endif %} {% endblock changing_content %}

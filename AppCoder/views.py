@@ -120,3 +120,7 @@ def add_User_Avatar(req):
   else:
     my_form = User_Avatar_Form()
     return render(req, 'add_User_Avatar.html',{'my_form': my_form})
+  
+def about_us(req):
+  
+  return render(req, 'about_us.html', {})
