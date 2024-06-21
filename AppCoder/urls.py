@@ -5,6 +5,7 @@ from AppCoder.views import *
 urlpatterns = [
     path('', init, name='Init'),
     path('shoes', shoes, name='Shoes'),
+    path('shoes-list', Shoes_List.as_view(), name='Shoes_List'),
     path('add-shoe', shoe_form, name='Add_Shoe'),
     path('shirts', shirts, name='Shirts'),
     path('add-shirt', shirt_form, name='Add_Shirt'),
@@ -14,8 +15,6 @@ urlpatterns = [
     path('update-user', update_user, name='Update_User'),
     path('add-User_Avatar', add_User_Avatar, name='Add_User_Avatar'),
     path('about-us', about_us, name= 'About_Us'),
-    path('detail-shoe/<pk>', ShoeDetail.as_view(), name='DetailShoe'),
-    path('detail-shirt/<pk>', ShirtDetail.as_view(), name='DetailShirt'),
 ]
 
 #admin lautaro - 123123123

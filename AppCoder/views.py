@@ -20,7 +20,15 @@ def init(req):
 
 def shoes(req):
   all_shoes = Shoe.objects.all()
-  return render(req, 'shoes.html', {'shoes': all_shoes})
+  if req.user.is_superuser or req.user.is_staff:
+    return render(req, 'shoes_staff.html', {'shoes': all_shoes})
+  else: 
+    return render(req, 'shoes.html', {'shoes': all_shoes})
+  
+class Shoes_List(ListView):
+  model = Shoe
+  template_name = 'shoes_list.html'
+  context_object_name = 'shoes'
 
 def shirts(req):
   all_shirts = Shirt.objects.all()
@@ -124,15 +132,3 @@ def add_User_Avatar(req):
 def about_us(req):
   
   return render(req, 'about_us.html', {})
-
-class ShoeDetail(DetailView):
-    
-    model = Shoe
-    template_name = 'detail_shoes.html' 
-    context_object_name = "shoe"
-    
-class ShirtDetail(DetailView):
-    
-    model = Shirt
-    template_name = 'detail_shirts.html' 
-    context_object_name = "shirt"    
