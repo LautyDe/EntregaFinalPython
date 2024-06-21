@@ -30,7 +30,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Application defHomeion
+# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',

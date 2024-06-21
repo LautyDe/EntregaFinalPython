@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Shoe, Shirt, User_Avatar
+from .models import Shoe, Shirt
 from .forms import Shoe_Form, Shirt_Form, Edit_User_Form, User_Avatar_Form
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
@@ -11,12 +11,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.admin.views.decorators import staff_member_required
 
 # Create your views here.
-def Home(req):
+def init(req):
     try:
       User_Avatar = User_Avatar.objects.get(user = req.user.id)
-      return render(req, 'Home.html',{'url': User_Avatar.image.url})
+      return render(req, 'init.html',{'url': User_Avatar.image.url})
     except:
-      return render(req, 'Home.html',{})
+      return render(req, 'init.html',{})
 
 def shoes(req):
   all_shoes = Shoe.objects.all()
@@ -33,7 +33,7 @@ def shoe_form(req):
       data = my_form.cleaned_data
       new_shoe = Shoe(model = data['model'], size = data['size'], price = data['price'])
       new_shoe.save()
-      return render(req, 'Home.html',{'message': 'shoe created'}) 
+      return render(req, 'init.html',{'message': 'shoe created'}) 
     else:
       return render(req, 'shoes.html',{'message': 'invalid data'}) 
   else:
@@ -47,7 +47,7 @@ def shirt_form(req):
       data = my_form.cleaned_data
       new_shirt = Shirt(model = data['model'], size = data['size'], price = data['price'])
       new_shirt.save()
-      return render(req, 'Home.html',{'message': 'shirt created'}) 
+      return render(req, 'init.html',{'message': 'shirt created'}) 
     else:
       return render(req, 'shirts.html',{'message': 'invalid data'}) 
   else:
@@ -64,11 +64,11 @@ def my_login(req):
       user = authenticate(username = user_name, password = psw)
       if user:
         login(req, user)
-        return render(req, 'Home.html',{'message': f'Welcone {user_name}'}) 
+        return render(req, 'init.html',{'message': f'Welcone {user_name}'}) 
       else:
-        return render(req, 'Home.html',{'message': 'Wrong credentials'})   
+        return render(req, 'init.html',{'message': 'Wrong credentials'})   
     else:
-      return render(req, 'Home.html',{'message': 'invalid data'}) 
+      return render(req, 'init.html',{'message': 'invalid data'}) 
   else:
     my_form = AuthenticationForm()
     return render(req, 'login.html',{'my_form': my_form})
@@ -80,9 +80,9 @@ def my_register(req):
       data = my_form.cleaned_data
       user_name = data["username"]
       my_form.save()
-      return render(req, 'Home.html',{'message': f'User {user_name} created!'})   
+      return render(req, 'init.html',{'message': f'User {user_name} created!'})   
     else:
-      return render(req, 'Home.html',{'message': 'invalid data'}) 
+      return render(req, 'init.html',{'message': 'invalid data'}) 
   else:
     my_form = UserCreationForm()
     return render(req, 'register.html',{'my_form': my_form})
@@ -99,7 +99,7 @@ def update_user(req):
       user.email = data['email']
       user.set_password(data['pwd1'])
       user.save()
-      return render(req, 'Home.html',{'message': 'user modified'}) 
+      return render(req, 'init.html',{'message': 'user modified'}) 
     else:
       return render(req, 'update_user.html',{'my_form': my_form}) 
   else:
@@ -114,9 +114,9 @@ def add_User_Avatar(req):
       data = my_form.cleaned_data
       User_Avatar = User_Avatar(user = req.user, image = data["image"])
       User_Avatar.save()
-      return render(req, 'Home.html',{'message': 'User_Avatar uploaded!'}) 
+      return render(req, 'init.html',{'message': 'User_Avatar uploaded!'}) 
     else:
-      return render(req, 'Home.html',{'message': 'invalid data'}) 
+      return render(req, 'init.html',{'message': 'invalid data'}) 
   else:
     my_form = User_Avatar_Form()
     return render(req, 'add_User_Avatar.html',{'my_form': my_form})
