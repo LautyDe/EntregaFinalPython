@@ -10,7 +10,7 @@ class Shoe(models.Model):
             MaxValueValidator(44)
         ])
   price = models.IntegerField()
-  image = models.ImageField(upload_to='shoes/', blank=True, null=True)
+  image = models.ImageField(upload_to='shoes/')
   
   def __str__(self):
     return f'{self.model} - {self.size}'
@@ -29,7 +29,7 @@ class Shirt(models.Model):
   model = models.CharField(max_length=100)
   size = models.CharField(max_length=3, choices=SIZES, default='M')
   price = models.IntegerField()
-  image = models.ImageField(upload_to='shirts/', blank=True, null=True)
+  image = models.ImageField(upload_to='shirts/')
   def __str__(self):
     return f'{self.model} - {self.size}'
   class Meta():
