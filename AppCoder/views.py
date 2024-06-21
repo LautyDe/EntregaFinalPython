@@ -124,3 +124,15 @@ def add_User_Avatar(req):
 def about_us(req):
   
   return render(req, 'about_us.html', {})
+
+class ShoeDetail(DetailView):
+    
+    model = Shoe
+    template_name = 'detail_shoes.html' 
+    context_object_name = "shoe"
+    
+class ShirtDetail(DetailView):
+    
+    model = Shirt
+    template_name = 'detail_shirts.html' 
+    context_object_name = "shirt"    
