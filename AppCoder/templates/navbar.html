@@ -4,13 +4,9 @@
       <a class="navbar-brand" href="{% url 'Init' %}">Init</a>
     </div>
     <a class="navbar-brand" href="{% url 'Shoes' %}">Shoes</a>
-    {% if user.is_staff or user.is_superuser %}
-    <a class="navbar-brand" href="{% url 'Add_Shoe' %}">Add shoes</a>
-    {% endif %}
+
     <a class="navbar-brand" href="{% url 'Shirts' %}">Shirts</a>
-    {% if user.is_staff or user.is_superuser %}
-    <a class="navbar-brand" href="{% url 'Add_Shirt' %}">Add shirts</a>
-    {% endif %} {% if user.is_authenticated %}
+    {% if user.is_authenticated %}
     <p>Bienvenido {{user.username}}</p>
     <form action="{% url 'Logout' %}" method="POST">
       {% csrf_token %}

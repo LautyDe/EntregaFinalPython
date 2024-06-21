@@ -21,7 +21,7 @@ def init(req):
 def shoes(req):
   all_shoes = Shoe.objects.all()
   if req.user.is_superuser or req.user.is_staff:
-    return render(req, 'shoes_staff.html', {'shoes': all_shoes})
+    return render(req, 'shoes_list.html', {'shoes': all_shoes})
   else: 
     return render(req, 'shoes.html', {'shoes': all_shoes})
   
@@ -30,23 +30,33 @@ class Shoes_List(ListView):
   template_name = 'shoes_list.html'
   context_object_name = 'shoes'
 
+class Shoe_Detail(DetailView):
+  model = Shoe
+  template_name = 'shoe_detail.html'
+  context_object_name = 'shoe'
+
+class Create_Shoe(CreateView):
+  model = Shoe
+  template_name = 'create_shoe.html'
+  fields = ('__all__')
+  success_url = '/app-coder/shoes-list'
+
+class Update_Shoe(UpdateView):
+  model = Shoe
+  template_name = 'update_shoe.html'
+  fields = ('__all__')
+  success_url = '/app-coder/shoes-list'
+  context_object_name = 'shoe'
+
+class Delete_Shoe(DeleteView):
+  model = Shoe
+  template_name = 'delete_shoe.html'
+  success_url = '/app-coder/shoes-list'
+  context_object_name = 'shoe'
+
 def shirts(req):
   all_shirts = Shirt.objects.all()
   return render(req, 'shirts.html', {'shirts': all_shirts})
-
-def shoe_form(req):
-  if req.method == 'POST':
-    my_form = Shoe_Form(req.POST)
-    if my_form.is_valid():
-      data = my_form.cleaned_data
-      new_shoe = Shoe(model = data['model'], size = data['size'], price = data['price'])
-      new_shoe.save()
-      return render(req, 'init.html',{'message': 'shoe created'}) 
-    else:
-      return render(req, 'shoes.html',{'message': 'invalid data'}) 
-  else:
-    my_form = Shoe_Form()
-    return render(req, 'add_shoe.html',{'my_form': my_form})
   
 def shirt_form(req):
   if req.method == 'POST':
