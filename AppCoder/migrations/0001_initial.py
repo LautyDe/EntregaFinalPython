@@ -39,10 +39,10 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='Avatar',
+            name='User_Avatar',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('image', models.ImageField(blank=True, null=True, upload_to='avatares')),
+                ('image', models.ImageField(blank=True, null=True, upload_to='User_Avatares')),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),

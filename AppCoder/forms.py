@@ -1,5 +1,5 @@
 from django import forms
-from .models import Avatar
+from .models import User_Avatar
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
 
@@ -33,7 +33,7 @@ class Edit_User_Form(UserChangeForm):
     else:
       return pwd2
     
-class Avatar_Form(forms.ModelForm):
+class User_Avatar_Form(forms.ModelForm):
   class Meta:
-    model = Avatar
+    model = User_Avatar
     fields = ('image',)

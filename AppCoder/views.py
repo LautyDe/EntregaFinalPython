@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import Shoe, Shirt, Avatar
-from .forms import Shoe_Form, Shirt_Form, Edit_User_Form, Avatar_Form
+from .models import Shoe, Shirt, User_Avatar
+from .forms import Shoe_Form, Shirt_Form, Edit_User_Form, User_Avatar_Form
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
@@ -13,8 +13,8 @@ from django.contrib.admin.views.decorators import staff_member_required
 # Create your views here.
 def init(req):
     try:
-      avatar = Avatar.objects.get(user = req.user.id)
-      return render(req, 'init.html',{'url': avatar.image.url})
+      User_Avatar = User_Avatar.objects.get(user = req.user.id)
+      return render(req, 'init.html',{'url': User_Avatar.image.url})
     except:
       return render(req, 'init.html',{})
 
@@ -107,16 +107,16 @@ def update_user(req):
     return render(req, 'update_user.html',{'my_form': my_form})
 
 @login_required  
-def add_avatar(req):
+def add_User_Avatar(req):
   if req.method == 'POST':
-    my_form = Avatar_Form(req.POST, req.FILES)
+    my_form = User_Avatar_Form(req.POST, req.FILES)
     if my_form.is_valid():
       data = my_form.cleaned_data
-      avatar = Avatar(user = req.user, image = data["image"])
-      avatar.save()
-      return render(req, 'init.html',{'message': 'Avatar uploaded!'}) 
+      User_Avatar = User_Avatar(user = req.user, image = data["image"])
+      User_Avatar.save()
+      return render(req, 'init.html',{'message': 'User_Avatar uploaded!'}) 
     else:
       return render(req, 'init.html',{'message': 'invalid data'}) 
   else:
-    my_form = Avatar_Form()
-    return render(req, 'add_avatar.html',{'my_form': my_form})
+    my_form = User_Avatar_Form()
+    return render(req, 'add_User_Avatar.html',{'my_form': my_form})
