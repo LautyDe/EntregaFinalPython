@@ -37,7 +37,7 @@ class Shirt(models.Model):
 
 class User_Avatar(models.Model):
   user = models.OneToOneField(User, on_delete = models.CASCADE)
-  image = models.ImageField(upload_to = 'user_avatars')
+  image = models.ImageField(upload_to = 'user_avatars', blank=True, null=True)
   def save(self, *args, **kwargs):
         try:
             old_instance = User_Avatar.objects.get(pk=self.pk)
