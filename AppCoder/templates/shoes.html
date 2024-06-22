@@ -1,8 +1,9 @@
 {% extends 'main.html' %} {% block changing_content %}
 <h1>Shoes list</h1>
+
 <ul>
   {% for shoe in shoes %}
-  <li>{{shoe}}</li>
+  <li><a href="{% url 'Shoe_Detail' shoe.id %}">{{shoe}}</a></li>
   {% endfor %}
 </ul>
 

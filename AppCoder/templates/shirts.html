@@ -2,7 +2,7 @@
 <h1>Shirts list</h1>
 <ul>
   {% for shirt in shirts %}
-  <li>{{shirt}}</li>
+  <li><a href="{% url 'Shirt_Detail' shirt.id %}">{{shirt}}</a></li>
   {% endfor %}
 </ul>
 

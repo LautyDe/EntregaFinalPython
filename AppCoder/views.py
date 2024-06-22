@@ -35,7 +35,7 @@ class Shoes_List(AdminRequiredMixin, ListView):
   template_name = 'shoes_list.html'
   context_object_name = 'shoes'
 
-class Shoe_Detail(AdminRequiredMixin, DetailView):
+class Shoe_Detail(DetailView):
   model = Shoe
   template_name = 'shoe_detail.html'
   context_object_name = 'shoe'
@@ -71,7 +71,7 @@ class Shirts_List(AdminRequiredMixin, ListView):
   template_name = 'shirts_list.html'
   context_object_name = 'shirts'
 
-class Shirt_Detail(AdminRequiredMixin, DetailView):
+class Shirt_Detail(DetailView):
   model = Shirt
   template_name = 'shirt_detail.html'
   context_object_name = 'shirt'
