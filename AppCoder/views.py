@@ -7,8 +7,12 @@ from django.views.generic.edit import DeleteView, UpdateView, CreateView
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+
+
+class AdminRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_authenticated and self.request.user.is_superuser
 
 # Create your views here.
 def home(req):
@@ -25,30 +29,31 @@ def shoes(req):
   else: 
     return render(req, 'shoes.html', {'shoes': all_shoes})
   
-class Shoes_List(ListView):
+
+class Shoes_List(AdminRequiredMixin, ListView):
   model = Shoe
   template_name = 'shoes_list.html'
   context_object_name = 'shoes'
 
-class Shoe_Detail(DetailView):
+class Shoe_Detail(AdminRequiredMixin, DetailView):
   model = Shoe
   template_name = 'shoe_detail.html'
   context_object_name = 'shoe'
 
-class Create_Shoe(CreateView):
+class Create_Shoe(AdminRequiredMixin, CreateView):
   model = Shoe
   template_name = 'create_shoe.html'
   fields = ('__all__')
   success_url = '/app-coder/shoes-list'
 
-class Update_Shoe(UpdateView):
+class Update_Shoe(AdminRequiredMixin, UpdateView):
   model = Shoe
   template_name = 'update_shoe.html'
   fields = ('__all__')
   success_url = '/app-coder/shoes-list'
   context_object_name = 'shoe'
 
-class Delete_Shoe(DeleteView):
+class Delete_Shoe(AdminRequiredMixin, DeleteView):
   model = Shoe
   template_name = 'delete_shoe.html'
   success_url = '/app-coder/shoes-list'
@@ -61,30 +66,30 @@ def shirts(req):
   else: 
     return render(req, 'shirts.html', {'shirts': all_shirts})
   
-class Shirts_List(ListView):
+class Shirts_List(AdminRequiredMixin, ListView):
   model = Shirt
   template_name = 'shirts_list.html'
   context_object_name = 'shirts'
 
-class Shirt_Detail(DetailView):
+class Shirt_Detail(AdminRequiredMixin, DetailView):
   model = Shirt
   template_name = 'shirt_detail.html'
   context_object_name = 'shirt'
 
-class Create_Shirt(CreateView):
+class Create_Shirt(AdminRequiredMixin, CreateView):
   model = Shirt
   template_name = 'create_shirt.html'
   fields = ('__all__')
   success_url = '/app-coder/shirts-list'
 
-class Update_Shirt(UpdateView):
+class Update_Shirt(AdminRequiredMixin, UpdateView):
   model = Shirt
   template_name = 'update_shirt.html'
   fields = ('__all__')
   success_url = '/app-coder/shirts-list'
   context_object_name = 'shirt'
 
-class Delete_Shirt(DeleteView):
+class Delete_Shirt(AdminRequiredMixin, DeleteView):
   model = Shirt
   template_name = 'delete_shirt.html'
   success_url = '/app-coder/shirts-list'
