@@ -1,5 +1,9 @@
 {% extends 'main.html' %} {% block changing_content %}
-<form action="{% url 'Update_Shoe' shoe.id %}" method="POST">
+<form
+  action="{% url 'Update_Shoe' shoe.id %}"
+  method="POST"
+  enctype="multipart/form-data"
+>
   {% csrf_token %} {{form.as_p}}
   <button type="submit">Update</button>
 </form>

@@ -1,4 +1,5 @@
 {% extends 'main.html' %} {% block changing_content %}
+<a href="{% url 'Add_User_Avatar' %}">Add Avatar</a>
 <form action="{% url 'Update_User' %}" method="POST">
   {% csrf_token %} {{my_form.as_p}}
   <button type="submit">Update</button>

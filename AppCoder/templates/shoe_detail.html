@@ -1,6 +1,9 @@
 {% extends 'main.html' %} {% block changing_content %}
 <h1>Shoe detail</h1>
 
-<h4>Shoe: {{shoe.model}} - {{shoe.size}} - {{shoe.price}} - {{shoe.image}}</h4>
+<h4>
+  Shoe: {{shoe.model}} - {{shoe.size}} - {{shoe.price}} -
+  <img src="{{shoe.image.url}}" alt="Shoe image" />
+</h4>
 
 {% endblock changing_content %}

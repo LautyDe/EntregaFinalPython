@@ -10,7 +10,7 @@ class Shoe(models.Model):
             MaxValueValidator(44)
         ])
   price = models.IntegerField()
-  image = models.ImageField(upload_to='shoes/', blank=True, null=True)
+  image = models.ImageField(upload_to = 'shoes', blank=True, null=True)
   
   def __str__(self):
     return f'{self.model} - {self.size}'
@@ -29,7 +29,7 @@ class Shirt(models.Model):
   model = models.CharField(max_length=100)
   size = models.CharField(max_length=3, choices=SIZES, default='M')
   price = models.IntegerField()
-  image = models.ImageField(upload_to='shirts/', blank=True, null=True)
+  image = models.ImageField(upload_to = 'shirts', blank=True, null=True)
   def __str__(self):
     return f'{self.model} - {self.size}'
   class Meta():
@@ -37,4 +37,12 @@ class Shirt(models.Model):
 
 class User_Avatar(models.Model):
   user = models.OneToOneField(User, on_delete = models.CASCADE)
-  image = models.ImageField(upload_to = 'User_Avatares', blank = True, null = True)
+  image = models.ImageField(upload_to = 'user_avatars', blank = True, null = True)
+  def save(self, *args, **kwargs):
+        try:
+            old_instance = User_Avatar.objects.get(pk=self.pk)
+            if old_instance.avatar and old_instance.avatar != self.avatar:
+                old_instance.avatar.delete(save=False)
+        except User_Avatar.DoesNotExist:
+            pass
+        super(User_Avatar, self).save(*args, **kwargs)
