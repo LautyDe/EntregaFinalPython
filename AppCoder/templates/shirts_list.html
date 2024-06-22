@@ -1,0 +1,17 @@
+{% extends 'main.html' %} {% block changing_content %}
+<h1>Shirts list</h1>
+<ul>
+  {% for shirt in shirts %}
+  <li><a href="{% url 'Shirt_Detail' shirt.id %}">{{shirt}}</a></li>
+  <div>
+    <button>
+      <a href="{% url 'Delete_Shirt' shirt.id %}">Delete</a>
+    </button>
+    <button>
+      <a href="{% url 'Update_Shirt' shirt.id %}">Update</a>
+    </button>
+  </div>
+  {% endfor %}
+</ul>
+<a href="{% url 'Create_Shirt' %}">Create shirt</a>
+{% endblock changing_content%}

@@ -3,17 +3,6 @@ from .models import User_Avatar
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
 
-
-class Shirt_Form(forms.Form):
-  model = forms.CharField()
-  size = forms.IntegerField()
-  price = forms.IntegerField()
-
-class Shoe_Form(forms.Form):
-  model = forms.CharField()
-  size = forms.IntegerField()
-  price = forms.IntegerField()
-
 class Edit_User_Form(UserChangeForm):
   password = forms.CharField(
     help_text = '',

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Shoe, Shirt
-from .forms import Shoe_Form, Shirt_Form, Edit_User_Form, User_Avatar_Form
+from .forms import  Edit_User_Form, User_Avatar_Form
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
@@ -56,21 +56,39 @@ class Delete_Shoe(DeleteView):
 
 def shirts(req):
   all_shirts = Shirt.objects.all()
-  return render(req, 'shirts.html', {'shirts': all_shirts})
+  if req.user.is_superuser or req.user.is_staff:
+    return render(req, 'shirts_list.html', {'shirts': all_shirts})
+  else: 
+    return render(req, 'shirts.html', {'shirts': all_shirts})
   
-def shirt_form(req):
-  if req.method == 'POST':
-    my_form = Shirt_Form(req.POST)
-    if my_form.is_valid():
-      data = my_form.cleaned_data
-      new_shirt = Shirt(model = data['model'], size = data['size'], price = data['price'])
-      new_shirt.save()
-      return render(req, 'init.html',{'message': 'shirt created'}) 
-    else:
-      return render(req, 'shirts.html',{'message': 'invalid data'}) 
-  else:
-    my_form = Shirt_Form()
-    return render(req, 'add_shirt.html',{'my_form': my_form})
+class Shirts_List(ListView):
+  model = Shirt
+  template_name = 'shirts_list.html'
+  context_object_name = 'shirts'
+
+class Shirt_Detail(DetailView):
+  model = Shirt
+  template_name = 'shirt_detail.html'
+  context_object_name = 'shirt'
+
+class Create_Shirt(CreateView):
+  model = Shirt
+  template_name = 'create_shirt.html'
+  fields = ('__all__')
+  success_url = '/app-coder/shirts-list'
+
+class Update_Shirt(UpdateView):
+  model = Shirt
+  template_name = 'update_shirt.html'
+  fields = ('__all__')
+  success_url = '/app-coder/shirts-list'
+  context_object_name = 'shirt'
+
+class Delete_Shirt(DeleteView):
+  model = Shirt
+  template_name = 'delete_shirt.html'
+  success_url = '/app-coder/shirts-list'
+  context_object_name = 'shirt'
 
 def my_login(req):
   if req.method == 'POST':

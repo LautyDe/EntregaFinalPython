@@ -8,6 +8,7 @@
     <a class="navbar-brand" href="{% url 'Shirts' %}">Shirts</a>
     {% if user.is_authenticated %}
     <p>Bienvenido {{user.username}}</p>
+    <a class="btn" href="{% url 'Update_User' %}">User info</a>
     <form action="{% url 'Logout' %}" method="POST">
       {% csrf_token %}
       <button type="submit">Logout</button>

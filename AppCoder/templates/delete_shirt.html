@@ -1,0 +1,8 @@
+{% extends 'main.html' %} {% block changing_content %}
+<form action="{% url 'Delete_Shirt' shirt.id %}" method="POST">
+  {% csrf_token %}
+  <p>Do you want to delete the shirt?</p>
+  <button type="submit">Delete</button>
+  <button><a href="{% url 'Shirts_List' %}">Cancel</a></button>
+</form>
+{% endblock changing_content %}

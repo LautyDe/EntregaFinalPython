@@ -1,16 +1,9 @@
 {% extends 'main.html' %} {% block changing_content %}
 <h1>Shirts list</h1>
-
-{% if shirts %}
 <ul>
   {% for shirt in shirts %}
-  <li>
-    <a href="{% url 'DetailShirt' .id %}">
-    {{shirt.model}} - Size {{shirt.size}}: ${{shirt.price}}
-    </a>
-  </li>
+  <li>{{shirt}}</li>
   {% endfor %}
 </ul>
-{% else %}
-<p>No shirts in stock</p>
-{% endif %} {% endblock changing_content %}
+
+{% if user %} {% endif %} {% endblock changing_content%}

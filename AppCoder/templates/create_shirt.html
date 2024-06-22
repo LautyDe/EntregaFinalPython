@@ -1,7 +1,6 @@
 {% extends 'main.html' %} {% block changing_content %}
-<h1>Add a shirt</h1>
-<form action="{% url 'Add_Shirt' %}" method="POST">
-  {% csrf_token %} {{my_form.as_p}}
+<form action="{% url 'Create_Shirt' %}" method="POST">
+  {% csrf_token %} {{form.as_p}}
   <button type="submit">Create</button>
 </form>
 {% endblock changing_content %}

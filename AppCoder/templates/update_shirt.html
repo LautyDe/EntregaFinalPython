@@ -1,0 +1,6 @@
+{% extends 'main.html' %} {% block changing_content %}
+<form action="{% url 'Update_Shirt' shirt.id %}" method="POST">
+  {% csrf_token %} {{form.as_p}}
+  <button type="submit">Update</button>
+</form>
+{% endblock changing_content %}
