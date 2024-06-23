@@ -4,7 +4,6 @@ from .models import Shoe, User
 from django.core.files.uploadedfile import SimpleUploadedFile
 from PIL import Image
 import io
-from django.contrib.auth import authenticate
 
 # Create your tests here.
 class Delete_Shoe(TestCase):
